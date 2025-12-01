@@ -1,0 +1,63 @@
+<%
+  add_gem_component_stylesheet("app_promo_banner")
+
+  component_helper = GovukPublishingComponents::Presenters::ComponentWrapperHelper.new(local_assigns)
+  component_helper.add_class("gem-c-app-promo-banner")
+  component_helper.add_role("region")
+  component_helper.add_aria_attribute({ label: t("components.app_promo_banner.aria_label")})
+  component_helper.set_hidden("hidden")
+  component_helper.add_data_attribute({ module: "app-promo-banner" })
+
+  disable_ga4 ||= false
+%>
+
+<%= tag.div(**component_helper.all_attributes) do %>
+  <%= tag.div(class: "govuk-width-container") do %>
+    <%= tag.div(class: "gem-c-app-promo-banner__container") do %>
+      <button class="gem-c-app-promo-banner__close-button js-close-app-promo-banner"
+        aria-label="<%= t('components.app_promo_banner.close') %>"
+        <% unless disable_ga4
+          ga4_event_attributes = {
+            event_name: "select_content",
+            type: "tbc - app promo banner",
+            action: "tbc - closed",
+            section: "tbc",
+          }.to_json %>
+          data-module="ga4-event-tracker"
+          data-ga4-event="<%= ga4_event_attributes %>"
+        <% end %>>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" focusable="false">
+          <title><%= t("components.app_promo_banner.close") %></title>
+          <circle cx="12" cy="12" r="11.5" stroke="currentColor" />
+          <path stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="m7 7 10 10m0-10L7 17" />
+        </svg>
+      </button>
+      <%= image_tag((asset_path "govuk_publishing_components/app-promo-banner/govuk-app-icon.png"),
+        alt: "",
+        class: "gem-c-app-promo-banner__icon",
+        width: "64",
+        height: "64",
+      ) %>
+      <%= tag.div(class: "gem-c-app-promo-banner__content") do %>
+        <%= tag.div(class: "gem-c-app-promo-banner__text") do %>
+          <%= tag.h2 t("components.app_promo_banner.title_text"), class: "govuk-heading-s govuk-!-margin-bottom-0" %>
+          <%= tag.p t("components.app_promo_banner.body_text"), class: "govuk-body-s govuk-!-margin-bottom-0" %>
+        <% end %>
+        <a href="https://play.google.com/store/apps/details?id=uk.gov.govuk&hl=en_GB"
+          class="govuk-link govuk-body govuk-!-margin-bottom-0"
+          <% unless disable_ga4
+            ga4_link_attributes = {
+              event_name: "navigation",
+              type: "tbc",
+              section: "tbc",
+            }.to_json %>
+            data-module="ga4-link-tracker"
+            data-ga4-event="<%= ga4_link_attributes %>"
+          <% end %>>
+          <%= t("components.app_promo_banner.view") %>
+          <%= tag.span("on Google Play", class: "govuk-visually-hidden") %>
+        </a>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
