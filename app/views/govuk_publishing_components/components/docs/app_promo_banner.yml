@@ -12,3 +12,8 @@ uses_component_wrapper_helper: true
 examples:
   default:
     data:
+  without_ga4_tracking:
+    description: |
+      Disables GA4 tracking on the app promo banner. Tracking is enabled by default. This adds a data module and data-attributes with JSONs to the accordion. See the [ga4-event-tracker documentation](https://github.com/alphagov/govuk_publishing_components/blob/main/docs/analytics-ga4/ga4-event-tracker.md) for more information.
+    data:
+      disable_ga4: true

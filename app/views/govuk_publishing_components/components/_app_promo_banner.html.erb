@@ -6,7 +6,7 @@
   component_helper.add_role("region")
   component_helper.add_aria_attribute({ label: t("components.app_promo_banner.aria_label")})
   component_helper.set_hidden("hidden")
-  component_helper.add_data_attribute({ module: "app-promo-banner" })
+  component_helper.add_data_attribute({ module: "app-promo-banner", nosnippet: "" })
 
   disable_ga4 ||= false
 %>
@@ -15,7 +15,7 @@
   <%= tag.div(class: "govuk-width-container") do %>
     <%= tag.div(class: "gem-c-app-promo-banner__container") do %>
       <button class="gem-c-app-promo-banner__close-button js-close-app-promo-banner"
-        aria-label="<%= t('components.app_promo_banner.close') %>"
+        aria-label='<%= t("components.app_promo_banner.close") %>'
         <% unless disable_ga4
           ga4_event_attributes = {
             event_name: "select_content",
